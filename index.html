@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Confession</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Dear <span id="recipientName">Someone Special</span></h1>
+        <div class="message">
+            I've been wanting to tell you something special. You mean the world to me, and I can't imagine my life without you. Will you be my Valentine?
+        </div>
+        <div class="heart">❤️</div>
+    </div>
+
+    <script>
+        // Function to get name from URL
+        function getName() {
+            // First try to get the name from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            let name = urlParams.get('name');
+
+            // If no name parameter found, try to get it from the path
+            if (!name) {
+                const path = window.location.pathname;
+                const pathParts = path.split('/');
+                name = pathParts[pathParts.length - 1];
+            }
+
+            // Clean up the name
+            if (name) {
+                // Remove any file extensions or special characters
+                name = name.replace(/\.html$/, '');
+                name = decodeURIComponent(name);
+                // Capitalize first letter
+                return name.charAt(0).toUpperCase() + name.slice(1);
+            }
+            return '';
+        }
+
+        // Update the name when page loads
+        window.onload = function() {
+            const name = getName();
+            if (name) {
+                document.getElementById('recipientName').textContent = name;
+                // Also update the page title
+                document.title = `Valentine's Message for ${name}`;
+            }
+        }
+    </script>
+</body>
+</html>
